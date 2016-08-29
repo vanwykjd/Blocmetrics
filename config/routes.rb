@@ -2,10 +2,12 @@ Rails.application.routes.draw do
 
 
   devise_for :users
+  
+  resources :users, only: [:show] 
 
     
   authenticated :users do
-    root to: 'welcome#index' , as: :authenticated_root
+    root to: 'users#show' , as: :authenticated_root
   end 
   
   get 'welcome/index'

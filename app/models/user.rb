@@ -7,19 +7,35 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
          
   validates_uniqueness_of :username, case_sensitive: false
-         
-         
-  def self.find_first_by_auth_conditions(warden_conditions)
-        conditions = warden_conditions.dup
-    if sign_in = conditions.delete(:sign_in)
-      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => sign_in.downcase }]).first
-    else
-      if conditions[:email].nil?
-        where(conditions).first
-      else
-        where(email: conditions[:email]).first
-      end
+  validates_presence_of   :username
+  validates_format_of     :username, :with => /\A[A-Za-z\d]([-\w]{,498}[A-Za-z\d])?\z/i
+  
+  validates_presence_of   :password_confirmation
+  
+  validate :validate_username
+  
+  def validate_username
+    if User.where(email: username).exists?
+      errors.add(:username, :invalid)
     end
+  end
+         
+         
+  def sign_in=(sign_in)
+    @sign_in = sign_in
+  end
+
+  def sign_in
+    @sign_in || self.username || self.email
+  end
+  
+  def self.find_for_database_authentication(warden_conditions)
+      conditions = warden_conditions.dup
+      if sign_in = conditions.delete(:sign_in)
+        where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => sign_in }]).first
+      elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+        where(conditions).first
+      end
   end
   
 end
