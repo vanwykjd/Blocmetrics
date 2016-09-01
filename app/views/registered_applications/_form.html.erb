@@ -1,0 +1,17 @@
+<%= form_for [user, registered_application], remote: true do |f| %>
+
+   
+   <div class="row">
+        <div class="form-group">
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'form-control', placeholder: "Add name of application to register" %>
+        </div>
+        
+            <%= f.label :url %>
+        <div class="input-group">
+            <%= f.text_field :url, class: "form-control", placeholder: "Add url of application" %>
+        <span class="input-group-btn">
+            <%= f.submit "Add", class: 'btn btn-success' %>
+        </span>
+<% end %>        
+</div>
