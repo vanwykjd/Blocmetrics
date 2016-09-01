@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
  
-     let(:new_user) { build(:user) }
+     let(:new_user) { create(:user) }
  
  ## User Sign-up
  
@@ -26,6 +26,45 @@ RSpec.describe User, type: :model do
         
         it "should confirm password confirmation is equal to password" do
             expect(new_user.password_confirmation).to eq(new_user.password)
+        end
+    end
+    
+    describe "invalid username and email" do
+        it "should not save user if username is invalid format" do
+            expect(FactoryGirl.build(:user, username: "user@username.com" )).to_not be_valid
+        end
+        
+        it "should not save user if username already exists" do
+            expect(FactoryGirl.build(:user, username: new_user.username)).to_not be_valid
+        end
+        
+
+        it "should not save user if email already exists" do
+            expect(FactoryGirl.build(:user, email: new_user.email)).to_not be_valid
+        end
+    end
+    
+ 
+ 
+ ## Registered Applications
+ 
+    let(:app_user) { create(:user) }
+ 
+  # Shoulda tests for registered application
+    it { is_expected.to have_many(:registered_applications) }
+    
+    describe "#register_for(app)" do
+        before do
+            @app = FactoryGirl.create(:registered_application)
+        end
+        
+        it "returns `nil` if the user has not registered the application" do
+            expect(app_user.register_for(@app)).to be_nil
+        end
+ 
+        it "returns the appropriate application if it exists" do
+            registered_application = app_user.registered_applications.where(url: @app.url).create
+            expect(app_user.register_for(@app)).to eq(registered_application)
         end
     end
     

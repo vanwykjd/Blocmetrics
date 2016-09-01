@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :registered_applications
+  
   attr_accessor :sign_in
   
   # Include default devise modules. Others available are:
@@ -19,23 +21,30 @@ class User < ActiveRecord::Base
       errors.add(:username, :invalid)
     end
   end
-         
-         
+  
+  
   def sign_in=(sign_in)
     @sign_in = sign_in
   end
+
 
   def sign_in
     @sign_in || self.username || self.email
   end
   
+  
   def self.find_for_database_authentication(warden_conditions)
-      conditions = warden_conditions.dup
-      if sign_in = conditions.delete(:sign_in)
-        where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => sign_in }]).first
-      elsif conditions.has_key?(:username) || conditions.has_key?(:email)
-        where(conditions).first
-      end
+    conditions = warden_conditions.dup
+    if sign_in = conditions.delete(:sign_in)
+      where(conditions).where(["username = :value OR lower(email) = lower(:value)", { :value => sign_in }]).first
+    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+      where(conditions).first
+    end
   end
   
+  
+  def register_for(app)
+    registered_applications.where(url: app.url).first
+  end
+
 end
