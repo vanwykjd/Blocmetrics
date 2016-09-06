@@ -1,5 +1,9 @@
+
 <%= content_tag :li, class: 'list-group-item', url: "registered_application-#{registered_application.url}" do %>
-           
-    <%= link_to "#{registered_application.name}",[ registered_application.user, registered_application ], method: :get, remote: true %> | <%= registered_application.url %><span class="badge"><%= link_to "De-register", [ registered_application.user, registered_application ], method: :delete, remote: true %></span> 
-         
+    <%= link_to "#{registered_application.name}", [ registered_application.user, registered_application ] %> |  
+    <small><%="#{registered_application.url}"%></small> <%= link_to "Visit", registered_application.url %> |
+    <%= link_to "Edit", edit_user_registered_application_path(registered_application.user, registered_application) %> |
+    <%= link_to "De-register",[ registered_application.user, registered_application ], method: :delete, remote: true %>
 <% end %>
+
+

@@ -1,18 +1,23 @@
 class RegisteredApplicationsController < ApplicationController
-    before_action :authenticate_user!
+    before_action :authenticate_user!, except: [ :index ]
+    
+    def index 
+   	    @registered_applications = RegisteredApplication.all
+    end
     
     def show
-        @registered_application = RegisteredApplication.find(params[:url])
+        @user = User.find(params[:user_id])
+        @registered_application = RegisteredApplication.find(params[:id])
     end
 
     def new
-        @user = User.find(params[:id] || current_user.id)
-        @registered_application = RegisteredApplication.new
+        @user = User.find(params[:user_id])
+        @registered_applications = RegisteredApplication.new
     end
     
     def create
         @user = User.find(params[:user_id])
-        @registered_application = @user.registered_applications.build(app_params)
+        @registered_application = @user.registered_applications.new(app_params)
         @registered_application.user = current_user
         @new_app = RegisteredApplication.new
     
@@ -29,11 +34,12 @@ class RegisteredApplicationsController < ApplicationController
     end
     
     def edit
-        @registered_application = RegisteredApplication.find(params[:url])
+        @user = User.find(params[:user_id])
+        @registered_application = RegisteredApplication.find(params[:id])
     end
     
     def update
-        @registered_application = RegisteredApplication.find(params[:url])
+        @registered_application = RegisteredApplication.find(params[:id])
         @registered_application.assign_attributes(app_params)
     
         if @registered_application.save
@@ -49,7 +55,7 @@ class RegisteredApplicationsController < ApplicationController
     end
     
     def destroy
-        @registered_application = RegisteredApplication.find(params[:url])
+        @registered_application = RegisteredApplication.find(params[:id])
      
         if @registered_application.destroy
             flash[:notice] = "\"#{@registered_application.name}\" was removed successfully."

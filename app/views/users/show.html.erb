@@ -1,11 +1,34 @@
-<div class="row">
-    <div class="col-md-8.col-md-offset-2">
-        <div class="media">
-            <div class="media-body">
-                <div class="page-header">
-                    <h1 class="text-center"><%= current_user.username.capitalize! %>'s <small>Apps being tracked:</small></h1><br />
+    <div class="row">
+        
+        <div class="col-md-8.col-md-offset-2">
+            
+            <div class="media">
+                
+                <div class="media-body">
+                    
+                    <div class="page-header">
+                        <h1 class="text-center"><%= current_user.username.capitalize! %>'s <small>Apps being tracked:</small></h1><br />
+                    </div>
+                    
+                    <div class="col-md-6 col-md-offset-3">
+                        
+                            <div class='js-items'>
+                                <%= render @user.registered_applications %>
+                            </div>
+                        
+                        
+                        <div class="new-app">
+                            <%= render 'registered_applications/form', registered_application: RegisteredApplication.new, user: @user %>
+                        </div>
+            
+                    </div>
+
                 </div>
+        
             </div>
+        
         </div>
+    
     </div>
+
 </div>
