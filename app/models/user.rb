@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :registered_applications
+  has_many :registered_applications, dependent: :destroy
   
   attr_accessor :sign_in
   

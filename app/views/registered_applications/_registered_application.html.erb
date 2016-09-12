@@ -1,7 +1,8 @@
 <table class="table table-hover">
-<%= content_tag :tr, class: 'text-center', id: "registered_application-#{registered_application.id}" do %>
-    <td class="text-left"><%= link_to "#{registered_application.name}", [ registered_application.user, registered_application ] %></td> 
-    <td class="text-center"><abbr title=<%="#{registered_application.url}"%> class="initialism"><%= link_to "Visit Site", "https://#{registered_application.url}", :target => "_blank" %></abbr></td>
+<%= content_tag :tr, class: 'text-justified', id: "registered_application-#{registered_application.id}" do %>
+    <td class="text-left"><%= link_to "#{registered_application.name}", [ registered_application.user, registered_application ] %> | 
+    Events: <%= registered_application.events.count %> |
+    <small><abbr title=<%="https://#{registered_application.url}"%> class="initialism"><%= link_to "Visit Site", "https://#{registered_application.url}", :target => "_blank" %></abbr></small></td>
     <td class="text-right"><%= link_to "Edit", edit_user_registered_application_path(registered_application.user, registered_application) %> |
     <%= link_to "De-register",[ registered_application.user, registered_application ], method: :delete, remote: true %></td>
 <% end %>

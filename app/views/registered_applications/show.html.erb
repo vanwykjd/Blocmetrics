@@ -4,12 +4,29 @@
             <div class="media-body">
                 <div class="page-header">
                     <h1 class="text-center"><small><%= link_to "Edit", edit_user_registered_application_path(@registered_application.user, @registered_application) %></small> | <%= "#{@registered_application.name}"%> | <small> <%= link_to "Visit Site", "https://#{@registered_application.url}", :target => "_blank" %></small></h1>
-                    <h3 class="text-center"><%= "#{@registered_application.url}" %></h3>
+                    <h3 class="text-center"><%= "https://#{@registered_application.url}" %></h3>
                         <h4 class="text-center">
                             registered <%= time_ago_in_words(@registered_application.created_at) %> ago 
                         </h4>
                     </h1>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8.col-md-offset-2">
+        <% if @registered_application.events.count > 0 %>
+            <h1 class="text-center">Events:</h1>
+                <% @events.each do |name, event| %>
+        <div class="media">
+            <div class="media-body">
+                <h2 class="text-left"><%= "#{name.capitalize}" %> <small> <%= "#{event.count}" %></small> </h2>
+            <% end %>
+        <% else %>
+                <h1 class="text-center">No Events have occured for <%="#{@registered_application.name}"%></h1>
+        <% end %>
             </div>
         </div>
     </div>
