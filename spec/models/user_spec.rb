@@ -55,16 +55,16 @@ RSpec.describe User, type: :model do
     
     describe "#register_for(app)" do
         before do
-            @app = FactoryGirl.create(:registered_application)
+            @app = RegisteredApplication.create!(name: "Bloc", url: "bloc.io")
         end
         
         it "returns `nil` if the user has not registered the application" do
-            expect(app_user.register_for(@app)).to be_nil
+            expect(app_user.registered_for(@app)).to be_nil
         end
  
         it "returns the appropriate application if it exists" do
-            registered_application = app_user.registered_applications.where(url: @app.url).create
-            expect(app_user.register_for(@app)).to eq(registered_application)
+            registered_application = app_user.registered_applications.where(name: @app.name, url: @app.url).create
+            expect(app_user.registered_for(@app)).to eq(registered_application)
         end
     end
     

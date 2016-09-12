@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
   end
   
   
-  def register_for(app)
-    registered_applications.where(url: app.url).first
+  def registered_for(app)
+    registered_applications.where(app.id).first
   end
 
 end

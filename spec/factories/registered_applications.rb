@@ -3,5 +3,6 @@ FactoryGirl.define do
     user 
     name { Faker::Internet.domain_name }
     url { Faker::Internet.url }
+    
   end
 end

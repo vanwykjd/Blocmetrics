@@ -3,12 +3,14 @@
         <div class="media">
             <div class="media-body">
                 <div class="page-header">
-                    <h1 class="text-center"><small><%= link_to "Edit", edit_user_registered_application_path(@registered_application.user, @registered_application) %> | </small> <%= @registered_application.name.capitalize! %>'s <small><%= "#{@registered_application.url}" %> | <%= link_to "Visit", @registered_application.url %></small></h1>
+                    <h1 class="text-center"><small><%= link_to "Edit", edit_user_registered_application_path(@registered_application.user, @registered_application) %></small> | <%= "#{@registered_application.name}"%> | <small> <%= link_to "Visit Site", "https://#{@registered_application.url}", :target => "_blank" %></small></h1>
+                    <h3 class="text-center"><%= "#{@registered_application.url}" %></h3>
                         <h4 class="text-center">
                             registered <%= time_ago_in_words(@registered_application.created_at) %> ago 
                         </h4>
                     </h1>
-                
-                
                 </div>
             </div>
+        </div>
+    </div>
+</div>
