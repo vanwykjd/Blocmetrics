@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     resources :registered_applications,  except: [:index ]
   end
+  
+  namespace :api, defaults: { format: :json } do
+    match 'create_event', to: 'events#create', via: [:options]
+    resources :events, only: [:create]
+  end
     
   authenticated :users do
     root to: 'users#show' , as: :authenticated_root

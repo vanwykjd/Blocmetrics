@@ -15,15 +15,15 @@ RSpec.describe RegisteredApplication, type: :model do
     
     describe "#event_for(registered_application)" do
      before do
-       @event = Event.create!(name: "Log-ins")
+       @event = FactoryGirl.create(:event)
      end
  
-     it "returns `nil` if the user has not favorited the post" do
+     it "returns `nil` if the event is has not been created on the registered_application" do
        expect(factory_user_app.event_for(@event)).to be_nil
      end
  
-     it "returns the appropriate favorite if it exists" do
-       event = factory_user_app.events.where(name: @event.name).create
+     it "returns the appropriate event if it exists" do
+       event = factory_user_app.events.where(name: @event.name ).create!
        expect(factory_user_app.event_for(@event)).to eq(event)
      end
    end
