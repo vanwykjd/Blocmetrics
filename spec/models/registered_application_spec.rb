@@ -23,7 +23,7 @@ RSpec.describe RegisteredApplication, type: :model do
      end
  
      it "returns the appropriate event if it exists" do
-       event = factory_user_app.events.where(name: @event.name ).create!
+       event = factory_user_app.events.where(name: @event.name ).create
        expect(factory_user_app.event_for(@event)).to eq(event)
      end
    end
