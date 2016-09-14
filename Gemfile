@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'figaro', '1.0'
 
+gem 'faker'
+
 gem 'pry'
 
 gem 'devise'
