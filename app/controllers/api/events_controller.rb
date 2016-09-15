@@ -21,11 +21,6 @@ class API::EventsController < ApplicationController
         end
     end
     
-    def set_access_control_headers
-        headers['Access-Control-Allow-Origin'] = '*'
-        headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-        headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    end
 
 private
     
@@ -33,6 +28,4 @@ private
         params.require(:event).permit(:name)
     end
     
-    
-
 end
