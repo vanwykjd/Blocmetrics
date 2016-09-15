@@ -2,7 +2,6 @@ class API::EventsController < ApplicationController
     skip_before_action :verify_authenticity_token
     
     respond_to :json
-    before_filter :set_access_control_headers
 
 
     def create
