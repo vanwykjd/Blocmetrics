@@ -1,3 +1,5 @@
+<%= javascript_include_tag "https://www.google.com/jsapi" %>
+
 <div class="row">
     <div class="col-md-8.col-md-offset-2">
         <div class="media">
@@ -22,7 +24,8 @@
                 <% @events.each do |name, event| %>
         <div class="media">
             <div class="media-body">
-                <h2 class="text-left"><%= "#{name.capitalize}" %> <small> <%= "#{event.count}" %></small> </h2>
+                <div class="pull-left"><%= pie_chart @registered_application.events.group(:name).count %></div>
+                <div class="pull-right"><%= line_chart @registered_application.events.group_by_day(:created_at).count %></div>
             <% end %>
         <% else %>
                 <h1 class="text-center">No Events have occured for <%="#{@registered_application.name}"%></h1>
