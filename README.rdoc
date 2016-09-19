@@ -23,6 +23,29 @@ Things you may want to cover:
 
 * ...
 
+        var blocmetrics = {};
+            blocmetrics.report = function(taskAdded) {
+                var new_event = { event: { name: taskAdded } };
+                
+                var request = new XMLHttpRequest();
+                request.open("POST", "https://bloc-project-blocmetrics-vanwykjd.c9users.io/api/events", true);
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.onreadystatechange = function() {
+                };
+                request.send(JSON.stringify(new_event));
+            };
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+example:
+        
+        <body onload="myFunction()">
+        <script>
+            function myFunction() {
+                blocmetrics.report('welcome#index');
+            }
+        </script>
+            <div class="..."
+                ......
+            </div>
+        </body>
+        
