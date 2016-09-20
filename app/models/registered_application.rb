@@ -1,6 +1,6 @@
 class RegisteredApplication < ActiveRecord::Base
   belongs_to :user
-  has_many :events
+  has_many :events, dependent: :destroy
   
   
    default_scope { order('updated_at DESC') }

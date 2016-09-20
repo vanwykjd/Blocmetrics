@@ -1,6 +1,6 @@
 <table class="table table-hover">
 <%= content_tag :tr, class: 'text-justified', id: "registered_application-#{registered_application.id}" do %>
-    <td class="text-left"><%= link_to "#{registered_application.name}", [ registered_application.user, registered_application ] %> | 
+    <td class="text-left"><%= link_to "#{registered_application.name}", [ registered_application.user, registered_application ], method: :GET %> | 
     Events: <%= registered_application.events.count %> |
     <small><abbr title=<%="#{registered_application.url}"%> class="initialism"><%= link_to "Visit Site", "#{registered_application.url}", :target => "_blank" %></abbr></small></td>
     <td class="text-right"><%= link_to "Edit", edit_user_registered_application_path(registered_application.user, registered_application) %> |
